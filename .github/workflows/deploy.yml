@@ -51,30 +51,30 @@ jobs:
           registry: ${{ env.REGISTRY_URL }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-#      - name: Build Quarkus with Java
-#        run: |
-#          cd quarkus-app && ./mvnw package
-#      - name: Build Micronaut with Java
-#        run: |
-#          cd micronaut-app && ./mvnw package
+      - name: Build Quarkus with Java
+        run: |
+          cd quarkus-app && ./mvnw package
+      - name: Build Micronaut with Java
+        run: |
+          cd micronaut-app && ./mvnw package
       - name: Build Spring Boot with Java
         run: |
           cd springboot-app && ./mvnw package  && mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-#      - name: Build and push Quarkus Java image to registry
-#        uses: docker/build-push-action@v4
-#        with:
-#          push: true
-#          tags: ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.QUARKUS_APP }}:${{ github.sha }}
-#          file: ./quarkus-app/src/main/docker/Dockerfile.jvm
-#          context: ./quarkus-app/
+      - name: Build and push Quarkus Java image to registry
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.QUARKUS_APP }}:${{ github.sha }}
+          file: ./quarkus-app/src/main/docker/Dockerfile.jvm
+          context: ./quarkus-app/
 
-#      - name: Build and push Micronaut Java image to registry
-#        uses: docker/build-push-action@v4
-#        with:
-#          push: true
-#          tags: ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.MICRONAUT_APP }}:${{ github.sha }}
-#          file: ./micronaut-app/src/main/docker/Dockerfile.jvm
-#          context: ./micronaut-app/
+      - name: Build and push Micronaut Java image to registry
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.MICRONAUT_APP }}:${{ github.sha }}
+          file: ./micronaut-app/src/main/docker/Dockerfile.jvm
+          context: ./micronaut-app/
 
       - name: Build and push Spring Boot Java image to registry
         uses: docker/build-push-action@v4
@@ -105,19 +105,19 @@ jobs:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
             
-            #az containerapp update \
-            #  --name ${{ env.QUARKUS_APP }} \
-            #  --resource-group ${{ env.RESOURCE_GROUP }} \
-            #  --image ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.QUARKUS_APP }}:${{ github.sha }} \
-            #  --query "properties.configuration.ingress.fqdn" \
-            #  --output tsv
+            az containerapp update \
+              --name ${{ env.QUARKUS_APP }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --image ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.QUARKUS_APP }}:${{ github.sha }} \
+              --query "properties.configuration.ingress.fqdn" \
+              --output tsv
 
-            #az containerapp update \
-            #  --name ${{ env.MICRONAUT_APP }} \
-            #  --resource-group ${{ env.RESOURCE_GROUP }} \
-            #  --image ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.MICRONAUT_APP }}:${{ github.sha }} \
-            #  --query "properties.configuration.ingress.fqdn" \
-            #  --output tsv
+            az containerapp update \
+              --name ${{ env.MICRONAUT_APP }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --image ${{ env.REGISTRY_URL }}/${{ env.PROJECT }}/${{ env.MICRONAUT_APP }}:${{ github.sha }} \
+              --query "properties.configuration.ingress.fqdn" \
+              --output tsv
 
             az containerapp update \
               --name ${{ env.SPRING_APP }} \
