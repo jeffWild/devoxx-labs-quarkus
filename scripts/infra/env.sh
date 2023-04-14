@@ -91,4 +91,12 @@ export SPRING_HOST=$(
     2>/dev/null \
 )
 
+export REVISION_ID=$(
+  az containerapp revision list \
+  --name "$QUARKUS_APP" \
+  --resource-group "$RESOURCE_GROUP" \
+  --query "[0].name" --output tsv \
+    2>/dev/null \
+)
+
 echo "Exported environment variables for project '${PROJECT}'."
