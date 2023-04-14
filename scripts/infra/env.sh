@@ -17,12 +17,14 @@ export LOG_ANALYTICS_WORKSPACE="log-$PROJECT"
 export CONTAINERAPPS_ENVIRONMENT="cae-$PROJECT"
 
 export UNIQUE_IDENTIFIER=${UNIQUE_IDENTIFIER:-${GITHUB_USER:-$(whoami)}}
+#export UNIQUE_IDENTIFIER=jeffwild123
 
 echo "Using unique identifier is: $UNIQUE_IDENTIFIER"
 echo "You can override it by setting it manually before running this script:"
 echo "export UNIQUE_IDENTIFIER=<your-unique-identifier>"
 
-export REGISTRY="crjavaruntimes${UNIQUE_IDENTIFIER}"
+#export REGISTRY="crjavaruntimes${UNIQUE_IDENTIFIER}"
+export REGISTRY="crjavaruntimesjeffwild123"
 export IMAGES_TAG="1.0"
 
 export POSTGRES_DB_ADMIN="javaruntimesadmin"
